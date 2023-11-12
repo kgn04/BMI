@@ -2,6 +2,8 @@
     <string name="app_name">BMI</string>
     <string name="waga_kg">WAGA: (KG)</string>
     <string name="wzrost_cm">WZROST (CM)</string>
+    <string name="waga_lb">WAGA: (LB)</string>
+    <string name="wzrost_in">WZROST (IN)</string>
     <string name="niedowaga">Niedowaga</string>
     <string name="niedowaga_opis">Niedowaga to stan, w którym masa ciała jednostki jest niższa niż oczekiwana dla jej wieku, płci i wzrostu. Osoby z niedowagą mogą doświadczać niedoborów składników odżywczych, co wpływa negatywnie na ogólny rozwój organizmu. Niewystarczająca masa ciała może prowadzić do osłabienia siły mięśniowej, problemy z układem odpornościowym i zmęczenie. W celu osiągnięcia zdrowej wagi, konieczne jest zrównoważone i odpowiednie odżywianie.</string>
     <string name="optimum">Optimum</string>
@@ -10,4 +12,5 @@
     <string name="nadwaga_opis">Nadwaga to sytuacja, w której masa ciała przekracza normy dla danej grupy wiekowej, płci i wzrostu. Osoby z nadwagą są bardziej narażone na rozwój chorób sercowo-naczyniowych, cukrzycy typu 2 i problemów z układem mięśniowo-szkieletowym. Kontrola masy ciała poprzez zdrową dietę i regularną aktywność fizyczną jest kluczowa dla uniknięcia powikłań zdrowotnych.</string>
     <string name="otylosc">Otyłość</string>
     <string name="otylosc_opis">Otyłość to stan, w którym nadmiar tkanki tłuszczowej w organizmie jest znaczący i stanowi zagrożenie dla zdrowia. Otyłość zwiększa ryzyko wystąpienia wielu chorób, takich jak choroby serca, nadciśnienie, cukrzyca, a także może prowadzić do problemów z układem oddechowym. Skuteczne leczenie otyłości obejmuje zmiany stylu życia, takie jak zrównoważona dieta, regularna aktywność fizyczna i wsparcie psychologiczne. Otyłość wymaga kompleksowego podejścia do odzyskania i utrzymania zdrowej wagi.</string>
+    <string name="wylicz">Wylicz</string>
 </resources>

@@ -4,10 +4,8 @@
 
     <item android:id="@+id/history"
         android:title="Historia" />
-    <item
-        android:id="@+id/units_switch"
-        android:title="Jednostki"
-        app:actionLayout="@layout/switch_item" />
+    <item android:id="@+id/units"
+        android:title="Zmień jednostki" />
     <item android:id="@+id/about_author"
         android:title="O autorze" />
 </menu>

@@ -1,20 +1,23 @@
 package com.example.bmi
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import java.util.Locale
 
 class BMIDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmidetails)
-        val bmi = intent.getDoubleExtra("BMI_VAL", 0.0)
+        val sharedPref = getSharedPreferences("BMIPrefs", Context.MODE_PRIVATE)
+        val bmi = sharedPref.getFloat("BMI", 0.0F)
         val bmiTextView: TextView = findViewById(R.id.bmiTextView2)
-        bmiTextView.text = "BMI: $bmi"
+        bmiTextView.text = "BMI: ${"%,.2f".format(Locale.ENGLISH, bmi)}"
         changeDescription(bmi)
     }
 
-    private fun changeDescription(bmi: Double) {
+    private fun changeDescription(bmi: Float) {
         val typeTextView: TextView = findViewById(R.id.typeTextView)
         val descriptionTextView: TextView = findViewById(R.id.descriptionTextView)
         if (bmi < 18.5) {

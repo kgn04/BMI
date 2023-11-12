@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:padding="5dp"
+      android:orientation="vertical">
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2023.01.01" />
+    <TextView
+        android:id="@+id/weightTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Waga: 70 kg" />
+    <TextView
+        android:id="@+id/heightTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wzrost: 180 cm" />
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/bmiTextView3"
+      android:layout_width="289dp"
+      android:layout_height="wrap_content"
+      android:padding="20dp"
+      android:textAlignment="viewEnd"
+      tools:text="BMI: 20.5" />
+</LinearLayout>

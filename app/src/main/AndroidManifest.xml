@@ -13,13 +13,13 @@
         android:theme="@style/Theme.BMI"
         tools:targetApi="31">
         <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".BMIDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".AboutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HistoryActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

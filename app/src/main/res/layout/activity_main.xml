@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/weightTextView"
         android:layout_width="90dp"
         android:layout_height="21dp"
         android:text="@string/waga_kg"
@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="@+id/editTextNumber" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/heightTextView"
         android:layout_width="111dp"
         android:layout_height="20dp"
         android:text="@string/wzrost_cm"
@@ -36,7 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="92dp"
-        android:text="BMI: 20.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +74,7 @@
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wylicz"
+        android:text="@string/wylicz"
         app:layout_constraintBottom_toTopOf="@+id/bmiTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
