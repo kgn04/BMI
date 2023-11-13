@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private var bmis = ""
     private var is_metrical_list = ""
 
-    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,25 +40,7 @@ class MainActivity : AppCompatActivity() {
         val calculateButton: Button = findViewById(R.id.calculateButton)
         calculateButton.setOnClickListener {
             updateBMI()
-            try {
-                bmis += "${(calculateBMI(weightEditText.text.toString().toDouble(),
-                    heightEditText.text.toString().toDouble()).toString())},"
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                dates += "${(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))},"
-                heights += "${(heightEditText.text.toString())},"
-                weights += "${(weightEditText.text.toString())},"
-                is_metrical_list += "${(metrical.toString())},"
-                if (bmis.count {it == ','} == 11) {
-                    bmis = bmis.substringAfter(',')
-                    dates = dates.substringAfter(',')
-                    heights = heights.substringAfter(',')
-                    weights = weights.substringAfter(',')
-                    is_metrical_list = is_metrical_list.substringAfter(',')
-                }
-            } catch (e: java.lang.NumberFormatException) {
-                Toast.makeText(this, "Proszę wprowadzić wagę i wzrost.", Toast.LENGTH_SHORT).show()
-            }
-
+            updateLists()
         }
         bmiTextView.setOnClickListener {
             val intent = Intent(this, BMIDetailsActivity::class.java)
@@ -74,13 +55,47 @@ class MainActivity : AppCompatActivity() {
         deserialize()
     }
 
-    fun deserialize() {
+    @SuppressLint("NewApi")
+    private fun updateLists() {
+        try {
+            bmis += "${(calculateBMI(weightEditText.text.toString().toDouble(),
+                heightEditText.text.toString().toDouble()).toString())},"
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            dates += "${(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))},"
+            heights += "${(heightEditText.text.toString())},"
+            weights += "${(weightEditText.text.toString())},"
+            is_metrical_list += "${(metrical.toString())},"
+            if (bmis.count {it == ','} == 11) {
+                bmis = bmis.substringAfter(',')
+                dates = dates.substringAfter(',')
+                heights = heights.substringAfter(',')
+                weights = weights.substringAfter(',')
+                is_metrical_list = is_metrical_list.substringAfter(',')
+            }
+        } catch (e: java.lang.NumberFormatException) {
+            Toast.makeText(this, "Proszę wprowadzić wagę i wzrost.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun deserialize() {
         val sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
         dates = sharedPref.getString("DATES", "")!!
         heights = sharedPref.getString("HEIGHTS", "")!!
         weights = sharedPref.getString("WEIGHTS", "")!!
         bmis = sharedPref.getString("BMIS", "")!!
         is_metrical_list = sharedPref.getString("IS_METRICAL_LIST", "")!!
+    }
+
+    private fun serialize() {
+        val sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("DATES", dates)
+            putString("HEIGHTS", heights)
+            putString("WEIGHTS", weights)
+            putString("BMIS", bmis)
+            putString("IS_METRICAL_LIST", is_metrical_list)
+            apply()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -92,16 +107,8 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
-                val sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
                 try {
-                    with(sharedPref.edit()) {
-                        putString("DATES", dates)
-                        putString("HEIGHTS", heights)
-                        putString("WEIGHTS", weights)
-                        putString("BMIS", bmis)
-                        putString("IS_METRICAL_LIST", is_metrical_list)
-                        apply()
-                    }
+                    serialize()
                     startActivity(intent)
                     true
                 } catch (e: StringIndexOutOfBoundsException) {
@@ -132,7 +139,6 @@ class MainActivity : AppCompatActivity() {
     private fun updateBMI() {
         val weightStr = weightEditText.text.toString()
         val heightStr = heightEditText.text.toString()
-
         if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
             val weight = weightStr.toDouble()
             val height = heightStr.toDouble()

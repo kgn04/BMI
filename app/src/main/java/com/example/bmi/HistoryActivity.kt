@@ -18,12 +18,7 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
-        dates = listFromSharedPreferences("DATES")
-        heights = listFromSharedPreferences("HEIGHTS")
-        weights = listFromSharedPreferences("WEIGHTS")
-        bmis = listFromSharedPreferences("BMIS")
-        is_metrical_list = listFromSharedPreferences("IS_METRICAL_LIST")
+        deserialize()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
@@ -32,9 +27,19 @@ class HistoryActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CustomAdapter(dates, heights, weights, bmis, is_metrical_list)
     }
-    fun listFromSharedPreferences(key: String): List<String> {
+
+    private fun listFromSharedPreferences(key: String): List<String> {
         var list_as_str = sharedPref.getString(key, "")!!
         list_as_str = list_as_str.substring(0, list_as_str.length - 1)
         return list_as_str.split(",").map { it.trim() }
+    }
+
+    private fun deserialize() {
+        sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
+        dates = listFromSharedPreferences("DATES")
+        heights = listFromSharedPreferences("HEIGHTS")
+        weights = listFromSharedPreferences("WEIGHTS")
+        bmis = listFromSharedPreferences("BMIS")
+        is_metrical_list = listFromSharedPreferences("IS_METRICAL_LIST")
     }
 }
