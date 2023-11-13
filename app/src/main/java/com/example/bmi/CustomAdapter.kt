@@ -1,11 +1,13 @@
 package com.example.bmi
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
+import android.graphics.Color
 
 
 class CustomAdapter(private val dates: List<String>, private val heights: List<String>,
@@ -34,6 +36,7 @@ class CustomAdapter(private val dates: List<String>, private val heights: List<S
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val h_unit: String
         val w_unit: String
@@ -44,10 +47,20 @@ class CustomAdapter(private val dates: List<String>, private val heights: List<S
             h_unit = "IN"
             w_unit = "LB"
         }
+        val bmi = bmis.toMutableList()[position].toDouble()
         viewHolder.dateTextView.text = dates.toMutableList()[position]
         viewHolder.heightTextView.text = "Wzrost: ${heights.toMutableList()[position]} ${h_unit}"
         viewHolder.weightTextView.text = "Waga: ${weights.toMutableList()[position]} ${w_unit}"
-        viewHolder.bmiTextView.text = "BMI: ${"%,.2f".format(Locale.ENGLISH, bmis.toMutableList()[position].toDouble())}"
+        viewHolder.bmiTextView.text = "BMI: ${"%,.2f".format(Locale.ENGLISH, bmi)}"
+        if (bmi < 18.5) {
+            viewHolder.bmiTextView.setTextColor(Color.BLUE)
+        } else if (bmi < 25.0) {
+            viewHolder.bmiTextView.setTextColor(Color.GREEN)
+        } else if (bmi < 30.0) {
+            viewHolder.bmiTextView.setTextColor(Color.YELLOW)
+        } else {
+            viewHolder.bmiTextView.setTextColor(Color.RED)
+        }
     }
 
     override fun getItemCount() = dates.size

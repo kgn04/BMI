@@ -13,4 +13,7 @@
     <string name="otylosc">Otyłość</string>
     <string name="otylosc_opis">Otyłość to stan, w którym nadmiar tkanki tłuszczowej w organizmie jest znaczący i stanowi zagrożenie dla zdrowia. Otyłość zwiększa ryzyko wystąpienia wielu chorób, takich jak choroby serca, nadciśnienie, cukrzyca, a także może prowadzić do problemów z układem oddechowym. Skuteczne leczenie otyłości obejmuje zmiany stylu życia, takie jak zrównoważona dieta, regularna aktywność fizyczna i wsparcie psychologiczne. Otyłość wymaga kompleksowego podejścia do odzyskania i utrzymania zdrowej wagi.</string>
     <string name="wylicz">Wylicz</string>
+    <string name="about_string_2">Student trzeciego roku Informatyki Stosowanej na Politechnice Wrocławskiej</string>
+    <string name="about_string_3">Aplikacja stworzona na rzecz kursu "Aplikacje mobilne na platformę Android"</string>
+    <string name="my_name">Kacper Gaudyn</string>
 </resources>

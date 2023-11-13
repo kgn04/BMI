@@ -4,7 +4,8 @@
               android:orientation="horizontal"
               android:padding="8dp"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="@dimen/cardview_compat_inset_shadow">
   <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -15,17 +16,23 @@
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2023.01.01" />
+        android:text="2023.01.01"
+        android:textSize="@dimen/font_size"/>
     <TextView
         android:id="@+id/weightTextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Waga: 70 kg" />
+        android:text="Waga: 70 kg"
+        android:textSize="@dimen/font_size"/>
+    />
+
     <TextView
         android:id="@+id/heightTextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wzrost: 180 cm" />
+        android:text="Wzrost: 180 cm"
+        android:textSize="@dimen/font_size"/>
+    />
   </LinearLayout>
 
   <TextView
@@ -34,5 +41,9 @@
       android:layout_height="wrap_content"
       android:padding="20dp"
       android:textAlignment="viewEnd"
-      tools:text="BMI: 20.5" />
+      tools:text="BMI: 20.5"
+      android:textSize="@dimen/big_font_size"
+      android:textStyle="bold"/>
+
+
 </LinearLayout>

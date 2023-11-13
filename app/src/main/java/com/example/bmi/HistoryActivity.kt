@@ -22,7 +22,6 @@ class HistoryActivity : AppCompatActivity() {
         weights = sharedPref.getString("WEIGHTS", "")!!.split(",").map { it.trim() }
         bmis = sharedPref.getString("BMIS", "")!!.split(",").map { it.trim() }
         is_metrical_list = sharedPref.getString("IS_METRICAL_LIST", "")!!.split(",").map { it.trim() }
-        Toast.makeText(this, dates.toMutableList().size.toString(), Toast.LENGTH_SHORT).show()
 
 
         super.onCreate(savedInstanceState)

@@ -3,8 +3,6 @@ package com.example.bmi
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +11,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -44,13 +41,25 @@ class MainActivity : AppCompatActivity() {
         val calculateButton: Button = findViewById(R.id.calculateButton)
         calculateButton.setOnClickListener {
             updateBMI()
-            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            dates += "${(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))},"
-            heights += "${(heightEditText.text.toString())},"
-            weights += "${(weightEditText.text.toString())},"
-            bmis += "${(calculateBMI(weightEditText.text.toString().toDouble(),
-                heightEditText.text.toString().toDouble()).toString())},"
-            is_metrical_list += "${(metrical.toString())},"
+            try {
+                bmis += "${(calculateBMI(weightEditText.text.toString().toDouble(),
+                    heightEditText.text.toString().toDouble()).toString())},"
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                dates += "${(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))},"
+                heights += "${(heightEditText.text.toString())},"
+                weights += "${(weightEditText.text.toString())},"
+                is_metrical_list += "${(metrical.toString())},"
+                if (bmis.count {it == ','} == 11) {
+                    bmis = bmis.substringAfter(',')
+                    dates = dates.substringAfter(',')
+                    heights = heights.substringAfter(',')
+                    weights = weights.substringAfter(',')
+                    is_metrical_list = is_metrical_list.substringAfter(',')
+                }
+            } catch (e: java.lang.NumberFormatException) {
+                Toast.makeText(this, "Proszę wprowadzić wagę i wzrost.", Toast.LENGTH_SHORT).show()
+            }
+
         }
         bmiTextView.setOnClickListener {
             val intent = Intent(this, BMIDetailsActivity::class.java)
@@ -74,17 +83,24 @@ class MainActivity : AppCompatActivity() {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 val sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
-                Toast.makeText(this, dates, Toast.LENGTH_SHORT).show()
-                with (sharedPref.edit()) {
-                    putString("DATES", dates.substring(0, dates.length - 1))
-                    putString("HEIGHTS", heights.substring(0, heights.length - 1))
-                    putString("WEIGHTS", weights.substring(0, weights.length - 1))
-                    putString("BMIS", bmis.substring(0, bmis.length - 1))
-                    putString("IS_METRICAL_LIST", is_metrical_list.substring(0, is_metrical_list.length - 1))
-                    apply()
+                try {
+                    with(sharedPref.edit()) {
+                        putString("DATES", dates.substring(0, dates.length - 1))
+                        putString("HEIGHTS", heights.substring(0, heights.length - 1))
+                        putString("WEIGHTS", weights.substring(0, weights.length - 1))
+                        putString("BMIS", bmis.substring(0, bmis.length - 1))
+                        putString(
+                            "IS_METRICAL_LIST",
+                            is_metrical_list.substring(0, is_metrical_list.length - 1)
+                        )
+                        apply()
+                    }
+                    startActivity(intent)
+                    true
+                } catch (e: StringIndexOutOfBoundsException) {
+                    Toast.makeText(this, "Brak rekordów BMI.", Toast.LENGTH_SHORT).show()
+                    false
                 }
-                startActivity(intent)
-                true
             }
             R.id.units -> {
                 changeUnits()
@@ -102,9 +118,10 @@ class MainActivity : AppCompatActivity() {
     private fun calculateBMI(weight: Double, height: Double): Double {
         if (metrical)
             return weight / ((height / 100) * (height / 100))
-        return weight / ((height * height * 730))
+        return weight / ((height * height)) * 703
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateBMI() {
         val weightStr = weightEditText.text.toString()
         val heightStr = heightEditText.text.toString()
@@ -112,9 +129,18 @@ class MainActivity : AppCompatActivity() {
         if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
             val weight = weightStr.toDouble()
             val height = heightStr.toDouble()
-
-            val bmi = "%,.2f".format(Locale.ENGLISH, calculateBMI(weight, height))
-            bmiTextView.text = "BMI: $bmi"
+            val bmi = calculateBMI(weight, height)
+            val bmi_str = "%,.2f".format(Locale.ENGLISH, bmi)
+            bmiTextView.text = "BMI: $bmi_str"
+            if (bmi < 18.5) {
+                bmiTextView.setTextColor(getColor(R.color.blue))
+            } else if (bmi < 25.0) {
+                bmiTextView.setTextColor(getColor(R.color.green))
+            } else if (bmi < 30.0) {
+                bmiTextView.setTextColor(getColor(R.color.yellow))
+            } else {
+                bmiTextView.setTextColor(getColor(R.color.red))
+            }
         }
     }
 
@@ -129,6 +155,6 @@ class MainActivity : AppCompatActivity() {
             weightTextView.text = getString(R.string.waga_kg)
         }
         metrical = !metrical
-        updateBMI()
+        bmiTextView.text = ""
     }
 }

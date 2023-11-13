@@ -16,7 +16,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.071"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:srcCompat="@mipmap/ic_launcher_round"
+        android:importantForAccessibility="no" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -28,7 +30,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.477"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:srcCompat="@mipmap/ic_launcher_round"
+        android:importantForAccessibility="no" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -40,41 +44,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.903"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:srcCompat="@mipmap/ic_launcher"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kacper Gaudyn"
+        android:text="@string/my_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintVertical_bias="0.157"
+        android:textSize="@dimen/big_font_size"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="141dp"
+        android:layout_height="150dp"
+        android:text="@string/about_string_2"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.437"
+        android:textSize="@dimen/font_size"/>
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lorem ipsum"
+        android:layout_width="156dp"
+        android:layout_height="160dp"
+        android:text="@string/about_string_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.303" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lorem ipsum"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.244" />
+        app:layout_constraintVertical_bias="0.611"
+        android:textSize="@dimen/font_size"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
