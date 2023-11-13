@@ -71,6 +71,16 @@ class MainActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        deserialize()
+    }
+
+    fun deserialize() {
+        val sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
+        dates = sharedPref.getString("DATES", "")!!
+        heights = sharedPref.getString("HEIGHTS", "")!!
+        weights = sharedPref.getString("WEIGHTS", "")!!
+        bmis = sharedPref.getString("BMIS", "")!!
+        is_metrical_list = sharedPref.getString("IS_METRICAL_LIST", "")!!
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -85,14 +95,11 @@ class MainActivity : AppCompatActivity() {
                 val sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
                 try {
                     with(sharedPref.edit()) {
-                        putString("DATES", dates.substring(0, dates.length - 1))
-                        putString("HEIGHTS", heights.substring(0, heights.length - 1))
-                        putString("WEIGHTS", weights.substring(0, weights.length - 1))
-                        putString("BMIS", bmis.substring(0, bmis.length - 1))
-                        putString(
-                            "IS_METRICAL_LIST",
-                            is_metrical_list.substring(0, is_metrical_list.length - 1)
-                        )
+                        putString("DATES", dates)
+                        putString("HEIGHTS", heights)
+                        putString("WEIGHTS", weights)
+                        putString("BMIS", bmis)
+                        putString("IS_METRICAL_LIST", is_metrical_list)
                         apply()
                     }
                     startActivity(intent)

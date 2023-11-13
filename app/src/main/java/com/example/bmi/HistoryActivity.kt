@@ -1,6 +1,7 @@
 package com.example.bmi
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -14,15 +15,15 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var weights: List<String>
     private lateinit var bmis: List<String>
     private lateinit var is_metrical_list: List<String>
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
-        dates = sharedPref.getString("DATES", "")!!.split(",").map { it.trim() }
-        heights = sharedPref.getString("HEIGHTS", "")!!.split(",").map { it.trim() }
-        weights = sharedPref.getString("WEIGHTS", "")!!.split(",").map { it.trim() }
-        bmis = sharedPref.getString("BMIS", "")!!.split(",").map { it.trim() }
-        is_metrical_list = sharedPref.getString("IS_METRICAL_LIST", "")!!.split(",").map { it.trim() }
-
+        sharedPref = getSharedPreferences("historyData", Context.MODE_PRIVATE)
+        dates = listFromSharedPreferences("DATES")
+        heights = listFromSharedPreferences("HEIGHTS")
+        weights = listFromSharedPreferences("WEIGHTS")
+        bmis = listFromSharedPreferences("BMIS")
+        is_metrical_list = listFromSharedPreferences("IS_METRICAL_LIST")
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
@@ -30,5 +31,10 @@ class HistoryActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CustomAdapter(dates, heights, weights, bmis, is_metrical_list)
+    }
+    fun listFromSharedPreferences(key: String): List<String> {
+        var list_as_str = sharedPref.getString(key, "")!!
+        list_as_str = list_as_str.substring(0, list_as_str.length - 1)
+        return list_as_str.split(",").map { it.trim() }
     }
 }
